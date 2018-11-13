@@ -3,6 +3,7 @@
 * Студент: [Влад Коломийцев](https://up.htmlacademy.ru/javascript/16/user/607609).
 * Наставник: [Владислав Балабанович](https://htmlacademy.ru/profile/balabanovich).
 
+
 ---
 
 _Не удаляйте и не обращайте внимание на файлы:_<br>
