@@ -223,30 +223,31 @@ var pins = mapPin.querySelectorAll('.map__pin');
 
 var addAttributeDisabled = function (value) {
   for (var i = 0; i < fieldsets.length; i++) {
-    // fieldsets[i].setAttribute('disabled', 'disabled');
     fieldsets[i].disabled = value;
   }
 };
 
 addAttributeDisabled(true);
 
-mapPinMain.addEventListener('click', function () {
+mapPinMain.addEventListener('mouseup', function () {
   map.classList.remove('map--faded');
-  mapPin.appendChild(fragmentPin);
-  map.insertBefore(fragmentPopup, lastElement);
+  mapPin.appendChild(fragmentPin).on('click', 'a', function(e){
+    console.log('some');
+});
   addAttributeDisabled(false);
   form.classList.remove('ad-form--disabled');
 });
 
+fragmentPin.addEventListener('click', function () {
+  console.log('some');
+});
+
 // for (var p = 0; p < pins.length; p++) {
 //   fragmentPopup.appendChild(renderPopup(objectsData[p]));
-// }
-
-
-// for (var p = 0; p < pins.length; p++) {
-//   pins[p].addEventListener('click', function () {
+//   pins[p].addEventListener('mousedown', function () {
 //     // fragmentPopup.appendChild(renderPopup(objectsData[p]));
 //     // map.insertBefore(fragmentPopup[p], lastElement);
+//     console.log('some');
 //   });
 // }
 
