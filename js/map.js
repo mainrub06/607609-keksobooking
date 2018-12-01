@@ -19,6 +19,8 @@ var DATA_COUNT = 8;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
+// Функции рандомных зачений
+
 var getRandomNumber = function (min, max) {
   var rand = min - 0.5 + Math.random() * (max - min + 1);
   rand = Math.round(rand);
@@ -100,10 +102,12 @@ for (var i = 0; i < DATA_COUNT; i++) {
   objectsData.push(mapData);
 }
 
+
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+//
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPin = document.querySelector('.map__pins');
+
 var fragmentPin = document.createDocumentFragment();
 
 var renderElement = function (mapElement) {
@@ -121,7 +125,7 @@ for (var j = 0; j < objectsData.length; j++) {
   fragmentPin.appendChild(renderElement(objectsData[j]));
 }
 
-mapPin.appendChild(fragmentPin);
+// mapPin.appendChild(fragmentPin);
 
 var templatePopup = document.querySelector('#card').content.querySelector('.map__card');
 var fragmentPopup = document.createDocumentFragment();
@@ -200,10 +204,49 @@ var renderPopup = function (popup) {
   return popupEl;
 };
 
+// Здесь заливаю рандомный попап
 
-fragmentPopup.appendChild(renderPopup(objectsData[getRandomNumber(0, objectsData.length - 1)]));
+// fragmentPopup.appendChild(renderPopup(objectsData[getRandomNumber(0, objectsData.length - 1)]));
 
 
 var lastElement = map.querySelector('.map__filters-container');
 
-map.insertBefore(fragmentPopup, lastElement);
+// map.insertBefore(fragmentPopup, lastElement);
+
+
+// Кнопки и события
+
+var mapPinMain = mapPin.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var fieldsets = form.querySelectorAll('fieldset');
+var pins = mapPin.querySelectorAll('.map__pin');
+
+var addAttributeDisabled = function (value) {
+  for (var i = 0; i < fieldsets.length; i++) {
+    // fieldsets[i].setAttribute('disabled', 'disabled');
+    fieldsets[i].disabled = value;
+  }
+};
+
+addAttributeDisabled(true);
+
+mapPinMain.addEventListener('click', function () {
+  map.classList.remove('map--faded');
+  mapPin.appendChild(fragmentPin);
+  map.insertBefore(fragmentPopup, lastElement);
+  addAttributeDisabled(false);
+  form.classList.remove('ad-form--disabled');
+});
+
+// for (var p = 0; p < pins.length; p++) {
+//   fragmentPopup.appendChild(renderPopup(objectsData[p]));
+// }
+
+
+// for (var p = 0; p < pins.length; p++) {
+//   pins[p].addEventListener('click', function () {
+//     // fragmentPopup.appendChild(renderPopup(objectsData[p]));
+//     // map.insertBefore(fragmentPopup[p], lastElement);
+//   });
+// }
+
