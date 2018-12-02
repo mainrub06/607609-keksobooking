@@ -144,7 +144,6 @@ for (var j = 0; j < objectsData.length; j++) {
   fragmentPin.appendChild(renderElement(objectsData[j]));
 }
 
-var templateCard = document.querySelector('#card');
 var templatePopup = document.querySelector('#card').content.querySelector('.map__card');
 
 var featuresList = templatePopup.querySelector('.popup__features');
@@ -207,7 +206,7 @@ var renderPopup = function (popup) {
   var type = popupEl.querySelector('.popup__type');
   var popupClose = popupEl.querySelector('.popup__close');
 
-  popupClose.addEventListener('click', function (evt) {
+  popupClose.addEventListener('click', function () {
     popupEl.remove();
   });
   document.removeEventListener('click', function (evt) {
@@ -242,14 +241,13 @@ var renderPopup = function (popup) {
 
 // Здесь заливаю рандомный попап
 
-var lastElement = map.querySelector('.map__filters-container');
 var mapPinMain = mapPin.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var fieldsets = form.querySelectorAll('fieldset');
 
 var addAttributeDisabled = function (value) {
-  for (var i = 0; i < fieldsets.length; i++) {
-    fieldsets[i].disabled = value;
+  for (var z = 0; z < fieldsets.length; z++) {
+    fieldsets[z].disabled = value;
   }
 };
 
@@ -264,7 +262,6 @@ mapPinMain.addEventListener('mouseup', function (evt) {
 });
 
 var adressInput = document.querySelector('#address');
-var mapPinMain = document.querySelector('.map__pin--main');
 
 var fillAddress = function () {
   adressInput.value = (mapPinMain.offsetTop + MAIN_PIN.HEIGHT) + ', ' + (mapPinMain.offsetLeft + MAIN_PIN.WIDTH / 2);
