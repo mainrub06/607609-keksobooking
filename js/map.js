@@ -280,12 +280,11 @@ mapPinMain.addEventListener('mouseup', function () {
   fillAddress();
 });
 
-var form = document.querySelector('.ad-form');
 var type = document.querySelector('#type');
 var price = document.querySelector('#price');
 
 var setMinValue = function () {
-  for(var h = 0; h < type.options.length; h++) {
+  for (var h = 0; h < type.options.length; h++) {
     var option = type.options[h];
     if (option.selected) {
       if (option.value === 'bungalo') {
@@ -312,7 +311,7 @@ type.addEventListener('change', function () {
 var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
 
-var getTime = function ( dataIn, dataOut) {
+var getTime = function (dataIn, dataOut) {
   for (var u = 0; u < dataIn.options.length; u++) {
     var option = dataIn.options[u];
     if (option.selected) {
@@ -362,4 +361,3 @@ roomNumber.addEventListener('change', function () {
 form.addEventListener('submit', function (evt) {
   evt.preventDefault();
 });
-
