@@ -124,9 +124,7 @@ var renderElement = function (mapElement) {
       fragmentPopup.remove();
     }
     renderPopup(mapElement);
-
   };
-
 
   pin.addEventListener('click', function () {
     openPopup();
@@ -215,6 +213,7 @@ var renderPopup = function (popup) {
     }
   });
 
+  popupEl.querySelector('.popup__avatar').src = popup.author.avatar;
   popupEl.querySelector('.popup__title').textContent = popup.offer.title;
   popupEl.querySelector('.popup__text--address').textContent = popup.offer.address;
   popupEl.querySelector('.popup__text--price').textContent = popup.offer.price + '₽/ночь';
@@ -265,6 +264,7 @@ var adressInput = document.querySelector('#address');
 
 var fillAddress = function () {
   adressInput.value = (mapPinMain.offsetTop + MAIN_PIN.HEIGHT) + ', ' + (mapPinMain.offsetLeft + MAIN_PIN.WIDTH / 2);
+  adressInput.disabled = true;
 };
 
 mapPinMain.addEventListener('mouseup', function () {
