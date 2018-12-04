@@ -32,6 +32,13 @@ var MIN_PRICES = {
   PALACE: 10000
 };
 
+var FRAMES = {
+  MAX_Y: 630,
+  MIN_Y: 130,
+  MAX_X: 1200,
+  MIN_X: -2
+};
+
 // Функции рандомных зачений
 
 var getRandomNumber = function (min, max) {
@@ -259,16 +266,6 @@ var addAttributeDisabled = function (value) {
 
 addAttributeDisabled(true);
 
-mapPinMain.addEventListener('mouseup', function (evt) {
-  map.classList.remove('map--faded');
-  mapPin.appendChild(fragmentPin);
-  addAttributeDisabled(false);
-  form.classList.remove('ad-form--disabled');
-  evt.stopPropagation();
-  setMinValue();
-  addDisabledCapacity(true, true, false, true);
-});
-
 var adressInput = document.querySelector('#address');
 
 var fillAddress = function () {
@@ -276,9 +273,7 @@ var fillAddress = function () {
   adressInput.disabled = true;
 };
 
-mapPinMain.addEventListener('mouseup', function () {
-  fillAddress();
-});
+fillAddress();
 
 var type = document.querySelector('#type');
 var price = document.querySelector('#price');
@@ -357,6 +352,57 @@ roomNumber.addEventListener('change', function () {
     }
   }
 });
+
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+  map.classList.remove('map--faded');
+  mapPin.appendChild(fragmentPin);
+  addAttributeDisabled(false);
+  form.classList.remove('ad-form--disabled');
+  setMinValue();
+  addDisabledCapacity(true, true, false, true);
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    fillAddress();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    if ((mapPinMain.offsetTop - shift.y) > FRAMES.MIN_Y && (mapPinMain.offsetTop - shift.y) < FRAMES.MAX_Y) {
+      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+    }
+
+    if ((mapPinMain.offsetLeft - shift.x) >= FRAMES.MIN_X && (mapPinMain.offsetLeft - shift.x) <= FRAMES.MAX_X - MAIN_PIN.WIDTH) {
+      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+    }
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
 
 form.addEventListener('submit', function (evt) {
   evt.preventDefault();
