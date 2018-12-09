@@ -40,8 +40,8 @@
     return pin;
   };
 
-  for (var j = 0; j < window.data.objectsData.length; j++) {
-    fragmentPin.appendChild(renderElement(window.data.objectsData[j]));
+  for (var j = 0; j < window.data.pins.length; j++) {
+    fragmentPin.appendChild(renderElement(window.data.pins[j]));
   }
 
   window.utils.mapPinMain.addEventListener('mousedown', function (evt) {
@@ -99,6 +99,6 @@
   });
 
   window.pin = {
-    MAIN_PIN: MAIN_PIN
+    SIZE: MAIN_PIN
   };
 })();

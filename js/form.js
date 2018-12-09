@@ -83,7 +83,7 @@
       capacity.options[3].disabled = data3;
     },
     fillAddress: function () {
-      adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.MAIN_PIN.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.MAIN_PIN.WIDTH / 2);
+      adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.SIZE.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.SIZE.WIDTH / 2);
       adressInput.disabled = true;
     }
   };

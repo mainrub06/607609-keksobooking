@@ -55,7 +55,7 @@
   }
 
   window.data = {
-    objectsData: objectsData
+    pins: objectsData
   };
 
 })();
