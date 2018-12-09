@@ -53,6 +53,7 @@
 
   window.utils.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
+    adressInput.disabled = false;
   });
 
   window.setFormData = {
@@ -81,6 +82,12 @@
       capacity.options[1].disabled = data1;
       capacity.options[2].disabled = data2;
       capacity.options[3].disabled = data3;
+
+      for (var i = 0; i < capacity.options.length; i++) {
+        if (capacity.options[i].disabled === false) {
+          capacity.options[i].selected = true;
+        }
+      }
     },
     fillAddress: function () {
       adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.SIZE.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.SIZE.WIDTH / 2);
