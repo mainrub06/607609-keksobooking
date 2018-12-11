@@ -7,6 +7,7 @@
     HOUSE: 5000,
     PALACE: 10000
   };
+  var adFormHeader = document.querySelector('.ad-form-header');
 
   window.utils.addAttributeDisabled(true);
 
@@ -51,9 +52,57 @@
     }
   });
 
+  var setAddressCoords = function (coords) {
+    adressInput.value = coords.LEFT + ', ' + coords.TOP;
+  };
+
+  var deactivateForm = function () {
+    var adFormFieldsets = document.querySelectorAll('.ad-form__element');
+    var mainForm = window.utils.form;
+    mainForm.reset();
+    mainForm.classList.add('ad-form--disabled');
+    setAddressCoords(window.pin.SIZE);
+
+    for (var i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = true;
+    }
+    adFormHeader.disabled = true;
+  };
+
+  var success = document.querySelector('#success');
+
+  var showSuccess = function () {
+    var openSuccess = success.cloneNode(true);
+    document.body.appendChild(openSuccess);
+  //   success.addEventListener('keydown', function (evt) {
+  //     if (evt.keyCode === 27) {
+  //       document.body.remove(openSuccess);
+  //     }
+  //   });
+  //   document.addEventListener('click', function () {
+  //     document.body.remove(openSuccess);
+  //   });
+  };
+
+  showSuccess();
+
+  var onSubmitSuccess = function () {
+    showSuccess();
+    deactivateForm();
+    // window.pin.resetMap.deactivateMap();
+  };
+
+  var onSubmitError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
+  // window.backend.upload(onSubmitSuccess, onSubmitError);
+
   window.utils.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
+    var formData = new FormData(window.utils.form);
     adressInput.disabled = false;
+    window.backend.upload(onSubmitSuccess, onSubmitError, formData);
   });
 
   window.setFormData = {
