@@ -69,39 +69,50 @@
     adFormHeader.disabled = true;
   };
 
-  var success = document.querySelector('#success');
+  var success = document.querySelector('#success').content.querySelector('.success');
+  var error = document.querySelector('#error').content.querySelector('.error');
+  var main = document.querySelector('main');
 
   var showSuccess = function () {
     var openSuccess = success.cloneNode(true);
-    document.body.appendChild(openSuccess);
-  //   success.addEventListener('keydown', function (evt) {
-  //     if (evt.keyCode === 27) {
-  //       document.body.remove(openSuccess);
-  //     }
-  //   });
-  //   document.addEventListener('click', function () {
-  //     document.body.remove(openSuccess);
-  //   });
+    main.appendChild(openSuccess);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        openSuccess.remove();
+      }
+    });
+    document.addEventListener('click', function () {
+      openSuccess.remove();
+    });
   };
 
-  showSuccess();
+  var showError = function () {
+    var openError = error.cloneNode(true);
+    var button = openError.querySelector('.error__button');
+    main.appendChild(openError);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        openError.remove();
+      }
+    });
+    button.addEventListener('click', function () {
+      openError.remove();
+    });
+  };
 
   var onSubmitSuccess = function () {
     showSuccess();
     deactivateForm();
-    // window.pin.resetMap.deactivateMap();
+    window.pin.resetMap();
   };
 
-  var onSubmitError = function (errorMessage) {
-    window.utils.renderErrorMessage(errorMessage);
+  var onSubmitError = function () {
+    showError();
   };
-
-  // window.backend.upload(onSubmitSuccess, onSubmitError);
 
   window.utils.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     var formData = new FormData(window.utils.form);
-    adressInput.disabled = false;
     window.backend.upload(onSubmitSuccess, onSubmitError, formData);
   });
 
@@ -140,7 +151,7 @@
     },
     fillAddress: function () {
       adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.SIZE.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.SIZE.WIDTH / 2);
-      adressInput.disabled = true;
+      adressInput.readOnly = true;
     }
   };
 
