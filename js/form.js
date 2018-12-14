@@ -7,6 +7,7 @@
     HOUSE: 5000,
     PALACE: 10000
   };
+  var adFormHeader = document.querySelector('.ad-form-header');
 
   window.utils.addAttributeDisabled(true);
 
@@ -51,9 +52,68 @@
     }
   });
 
+  var setAddressCoords = function (coords) {
+    adressInput.value = coords.LEFT + ', ' + coords.TOP;
+  };
+
+  var deactivateForm = function () {
+    var adFormFieldsets = document.querySelectorAll('.ad-form__element');
+    var mainForm = window.utils.form;
+    mainForm.reset();
+    mainForm.classList.add('ad-form--disabled');
+    setAddressCoords(window.pin.SIZE);
+
+    for (var i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = true;
+    }
+    adFormHeader.disabled = true;
+  };
+
+  var success = document.querySelector('#success').content.querySelector('.success');
+  var error = document.querySelector('#error').content.querySelector('.error');
+  var main = document.querySelector('main');
+
+  var showSuccess = function () {
+    var openSuccess = success.cloneNode(true);
+    main.appendChild(openSuccess);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        openSuccess.remove();
+      }
+    });
+    document.addEventListener('click', function () {
+      openSuccess.remove();
+    });
+  };
+
+  var showError = function () {
+    var openError = error.cloneNode(true);
+    var button = openError.querySelector('.error__button');
+    main.appendChild(openError);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        openError.remove();
+      }
+    });
+    button.addEventListener('click', function () {
+      openError.remove();
+    });
+  };
+
+  var onSubmitSuccess = function () {
+    showSuccess();
+    deactivateForm();
+    window.pin.resetMap();
+  };
+
+  var onSubmitError = function () {
+    showError();
+  };
+
   window.utils.form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    adressInput.disabled = false;
+    var formData = new FormData(window.utils.form);
+    window.backend.upload(onSubmitSuccess, onSubmitError, formData);
   });
 
   window.setFormData = {
@@ -91,7 +151,7 @@
     },
     fillAddress: function () {
       adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.SIZE.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.SIZE.WIDTH / 2);
-      adressInput.disabled = true;
+      adressInput.readOnly = true;
     }
   };
 

@@ -56,6 +56,12 @@
           dataOut.options[u].selected = true;
         }
       }
+    },
+    renderErrorMessage: function (errorMessage) {
+      var message = document.createElement('div');
+      message.classList.add('error-message');
+      message.textContent = errorMessage;
+      document.body.insertAdjacentElement('afterbegin', message);
     }
   };
 })();
