@@ -42,7 +42,10 @@
   };
 
   var onLoadSuccess = function (adData) {
-    renderPinsMarkup(adData);
+    var pinsAll = renderPinsMarkup(adData);
+    // var pinsFilter = pinsAll.filter(isFlatType);
+
+    mapPin.appendChild(pinsAll);
   };
 
   var onLoadError = function (errorMessage) {
@@ -50,13 +53,15 @@
   };
 
   var renderPinsMarkup = function (adData) {
+    var pinsFilter = adData.filter(isFlatType);
     var fragmentPin = document.createDocumentFragment();
-    for (var j = 0; j < adData.length; j++) {
-      if (adData[j].offer && adData[j].author && adData[j].location) {
-        fragmentPin.appendChild(renderElement(adData[j]));
+    for (var j = 0; j < pinsFilter.length; j++) {
+      if (pinsFilter[j].offer && pinsFilter[j].author && pinsFilter[j].location) {
+        fragmentPin.appendChild(renderElement(pinsFilter[j]));
       }
     }
-    mapPin.appendChild(fragmentPin);
+    // mapPin.appendChild(fragmentPin);
+    return fragmentPin;
   };
 
 
@@ -65,6 +70,14 @@
     map.classList.remove('map--faded');
 
     window.backend.load(onLoadSuccess, onLoadError);
+
+    housingType.addEventListener('change', function () {
+      window.backend.load(onLoadSuccess, onLoadError);
+      for (var i = 0; i < housingType.options.length; i++) {
+        var option = housingType.options[i];
+
+      }
+    });
 
     window.utils.addAttributeDisabled(false);
     window.utils.form.classList.remove('ad-form--disabled');
