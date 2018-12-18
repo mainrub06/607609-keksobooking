@@ -44,6 +44,7 @@
   var onLoadSuccess = function (adData) {
     var pinsAll = renderPinsMarkup(adData);
     // var pinsFilter = pinsAll.filter(isFlatType);
+    // runFilter(pinsAll);
 
     mapPin.appendChild(pinsAll);
   };
@@ -53,11 +54,13 @@
   };
 
   var renderPinsMarkup = function (adData) {
-    var pinsFilter = adData.filter(isFlatType);
+    // var some = activateFilters(adData);
+    var some = adData;
+    //  runTypeFilter(adData);
     var fragmentPin = document.createDocumentFragment();
-    for (var j = 0; j < pinsFilter.length; j++) {
-      if (pinsFilter[j].offer && pinsFilter[j].author && pinsFilter[j].location) {
-        fragmentPin.appendChild(renderElement(pinsFilter[j]));
+    for (var j = 0; j < some.length; j++) {
+      if (some[j].offer && some[j].author && some[j].location) {
+        fragmentPin.appendChild(renderElement(some[j]));
       }
     }
     // mapPin.appendChild(fragmentPin);
@@ -71,13 +74,13 @@
 
     window.backend.load(onLoadSuccess, onLoadError);
 
-    housingType.addEventListener('change', function () {
-      window.backend.load(onLoadSuccess, onLoadError);
-      for (var i = 0; i < housingType.options.length; i++) {
-        var option = housingType.options[i];
+    // housingType.addEventListener('change', function () {
+    //   window.backend.load(onLoadSuccess, onLoadError);
+    //   for (var i = 0; i < housingType.options.length; i++) {
+    //     var option = housingType.options[i];
 
-      }
-    });
+    //   }
+    // });
 
     window.utils.addAttributeDisabled(false);
     window.utils.form.classList.remove('ad-form--disabled');
@@ -131,15 +134,19 @@
 
   window.utils.mapPinMain.addEventListener('mousedown', mapActive);
 
+  var removeMapPins = function () {
+    var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < mapPinsItems.length; j++) {
+      mapPinsItems[j].remove();
+    }
+  };
+
   var deactivateMap = function () {
     var mapCard = document.querySelector('.map__card');
     map.classList.add('map--faded');
-    var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    removeMapPins();
     if (mapCard) {
       mapCard.remove();
-    }
-    for (var j = 0; j < mapPinsItems.length; j++) {
-      mapPinsItems[j].remove();
     }
     window.utils.mapPinMain.style.top = MAIN_PIN.TOP + 'px';
     window.utils.mapPinMain.style.left = MAIN_PIN.LEFT + 'px';
@@ -148,6 +155,7 @@
 
   window.pin = {
     SIZE: MAIN_PIN,
-    resetMap: deactivateMap
+    resetMap: deactivateMap,
+    remove: removeMapPins
   };
 })();
