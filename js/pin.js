@@ -42,11 +42,9 @@
   };
 
   var onLoadSuccess = function (adData) {
-    var pinsAll = renderPinsMarkup(adData);
-    // var pinsFilter = pinsAll.filter(isFlatType);
-    // runFilter(pinsAll);
-
-    mapPin.appendChild(pinsAll);
+    window.pin.data = adData;
+    var filteredData = renderEvents();
+    renderPinsMarkup(filteredData);
   };
 
   var onLoadError = function (errorMessage) {
@@ -54,17 +52,16 @@
   };
 
   var renderPinsMarkup = function (adData) {
-    // var some = activateFilters(adData);
-    var some = adData;
-    //  runTypeFilter(adData);
+    if (mapPin.fragmentPin) {
+      removeMapPins();
+    }
     var fragmentPin = document.createDocumentFragment();
-    for (var j = 0; j < some.length; j++) {
-      if (some[j].offer && some[j].author && some[j].location) {
-        fragmentPin.appendChild(renderElement(some[j]));
+    for (var j = 0; j < adData.length; j++) {
+      if (adData[j].offer && adData[j].author && adData[j].location) {
+        fragmentPin.appendChild(renderElement(adData[j]));
       }
     }
-    // mapPin.appendChild(fragmentPin);
-    return fragmentPin;
+    mapPin.appendChild(fragmentPin);
   };
 
 

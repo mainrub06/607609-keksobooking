@@ -20,12 +20,8 @@ var typeHandler = [];
 
 housingType.addEventListener('change', function (e) {
   var target = e.target;
-  if (target.selected) {
-    typeHandler.push(target.value);
-  }
-});
 
-console.log(typeHandler);
+});
 
 var getTypeAim = function (it) {
   if (typeHandler.indexOf === -1) {
@@ -35,26 +31,22 @@ var getTypeAim = function (it) {
   }
 };
 
-var renderEvents = function () {
-  var priceHandler = 5;
-
-  housingPrice.addEventListener('change', function (z) {
-    var target = z.target;
-    priceHandler = target.value;
-    // if (priceHandler !== 1) {
-    //   priceHandler = target.value;
-    // } else {
-    //   priceHandler = 1;
-    // }
-
-    return priceHandler;
-
-  });
-  console.log(priceHandler);
+var filterObject = {
+  'housing-price': 'any'
 };
 
-renderEvents();
 
+var renderEvents = function () {
+  var data = window.pin.data;
+  housingPrice.addEventListener('change', function (z) {
+    // var target = z.target;
+    filterObject[z.target.id] = z.target.value;
+  });
+
+  return data;
+};
+
+console.log(filterObject['housing-price']);
 
 var getPriceAim = function (it) {
   if (priceHandler === 'any') {
