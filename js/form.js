@@ -104,6 +104,7 @@
     showSuccess();
     deactivateForm();
     window.pin.resetMap();
+    window.avatar.reset();
   };
 
   var onSubmitError = function () {

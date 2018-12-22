@@ -32,7 +32,7 @@
       });
     }
     for (var c = 0; c < allCheckboxes.length; c++) {
-      allCheckboxes[c].addEventListener('change', function (evt) {
+      allCheckboxes[c].addEventListener('change', function () {
         filterPins();
       });
     }
@@ -89,6 +89,8 @@
     } else if (filterSelects['housing-price'] === 'high') {
       return (it.offer.price >= PRICE_MAP.HIGH);
     }
+
+    return false;
   };
 
   var isRoomsAim = function (it) {

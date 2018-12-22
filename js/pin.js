@@ -64,9 +64,9 @@
         }
       }
     } else {
-      for (var j = 0; j < MAX_PINS; j++) {
-        if (adData[j].offer && adData[j].author && adData[j].location) {
-          fragmentPin.appendChild(renderElement(adData[j]));
+      for (var b = 0; b < MAX_PINS; b++) {
+        if (adData[b].offer && adData[b].author && adData[b].location) {
+          fragmentPin.appendChild(renderElement(adData[b]));
         }
       }
     }
@@ -131,6 +131,7 @@
     map.classList.remove('map--faded');
     window.backend.load(onLoadSuccess, onLoadError);
     window.utils.mapPinMain.removeEventListener('mousedown', mapActive);
+    window.avatar.activate();
   };
 
   window.utils.mapPinMain.addEventListener('mousedown', pinActive);
@@ -166,7 +167,7 @@
   window.pin = {
     SIZE: MAIN_PIN,
     resetMap: deactivateMap,
-    removePin: removeMapPins,
+    remove: removeMapPins,
     removeCard: removeMapCard,
     render: renderPinsMarkup
   };
