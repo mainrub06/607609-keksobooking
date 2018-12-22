@@ -2,6 +2,7 @@
 
 (function () {
   var fieldsets = document.querySelectorAll('fieldset');
+  var DEBOUNCE_INTERVAL = 500;
   window.utils = {
     // глобальные константы
     // глобальные переменные
@@ -62,6 +63,19 @@
       message.classList.add('error-message');
       message.textContent = errorMessage;
       document.body.insertAdjacentElement('afterbegin', message);
+    },
+    debounce: function (cb) {
+      var lastTimeout = null;
+
+      return function () {
+        var parameters = arguments;
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(function () {
+          cb.apply(null, parameters);
+        }, DEBOUNCE_INTERVAL);
+      };
     }
   };
 })();
