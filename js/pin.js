@@ -15,6 +15,8 @@
   };
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
+  var MAX_PINS = 5;
+
   var map = document.querySelector('.map');
   var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPin = document.querySelector('.map__pins');
@@ -50,8 +52,6 @@
   var onLoadError = function (errorMessage) {
     window.utils.renderErrorMessage(errorMessage);
   };
-
-  var MAX_PINS = 5;
 
   var renderPinsMarkup = function (adData) {
     removeMapPins();

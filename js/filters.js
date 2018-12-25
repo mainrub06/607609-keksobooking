@@ -22,25 +22,27 @@
   var allSelects = document.querySelectorAll('.map__filter');
   var allCheckboxes = document.querySelectorAll('.map__checkbox');
   var activateFilters = function () {
-    allSelects.forEach(function (it) {
-      it.disabled = false;
+    allSelects.forEach(function (item) {
+      item.disabled = false;
     });
-    for (var d = 0; d < allSelects.length; d++) {
-      allSelects[d].addEventListener('change', function (evt) {
+
+    allSelects.forEach(function (item) {
+      item.addEventListener('change', function (evt) {
         filterSelects[evt.target.id] = evt.target.value;
         filterPins();
       });
-    }
-    for (var c = 0; c < allCheckboxes.length; c++) {
-      allCheckboxes[c].addEventListener('change', function () {
+    });
+
+    allCheckboxes.forEach(function (item) {
+      item.addEventListener('change', function () {
         filterPins();
       });
-    }
+    });
   };
 
   var resetFilter = function () {
-    allSelects.forEach(function (it) {
-      it.value = 'any';
+    allSelects.forEach(function (item) {
+      item.value = 'any';
     });
     allCheckboxes.forEach(function (feature) {
       feature.checked = false;
@@ -48,8 +50,8 @@
   };
 
   var deactivateFilter = function () {
-    allSelects.forEach(function (it) {
-      it.disabled = true;
+    allSelects.forEach(function (item) {
+      item.disabled = true;
     });
     resetFilter();
   };
@@ -71,41 +73,41 @@
     window.pin.render(newFilteredArray);
   });
 
-  var isTypeAim = function (it) {
+  var isTypeAim = function (item) {
     if (filterSelects['housing-type'] === 'any') {
       return true;
     } else {
-      return (it.offer.type === filterSelects['housing-type']);
+      return (item.offer.type === filterSelects['housing-type']);
     }
   };
 
-  var isPriceAim = function (it) {
+  var isPriceAim = function (item) {
     if (filterSelects['housing-price'] === 'any') {
-      return (it.offer.price > PRICE_MAP.ANY);
+      return (item.offer.price > PRICE_MAP.ANY);
     } else if (filterSelects['housing-price'] === 'middle') {
-      return (it.offer.price > PRICE_MAP.MIDDLE.MIN && it.offer.price < PRICE_MAP.MIDDLE.MAX);
+      return (item.offer.price > PRICE_MAP.MIDDLE.MIN && item.offer.price < PRICE_MAP.MIDDLE.MAX);
     } else if (filterSelects['housing-price'] === 'low') {
-      return (it.offer.price <= PRICE_MAP.LOW);
+      return (item.offer.price <= PRICE_MAP.LOW);
     } else if (filterSelects['housing-price'] === 'high') {
-      return (it.offer.price >= PRICE_MAP.HIGH);
+      return (item.offer.price >= PRICE_MAP.HIGH);
     }
 
     return false;
   };
 
-  var isRoomsAim = function (it) {
+  var isRoomsAim = function (item) {
     if (filterSelects['housing-rooms'] === 'any') {
       return true;
     } else {
-      return it.offer.rooms === +filterSelects['housing-rooms'];
+      return item.offer.rooms === +filterSelects['housing-rooms'];
     }
   };
 
-  var isGuestsAim = function (it) {
+  var isGuestsAim = function (item) {
     if (filterSelects['housing-guests'] === 'any') {
       return true;
     } else {
-      return it.offer.guests === +filterSelects['housing-guests'];
+      return item.offer.guests === +filterSelects['housing-guests'];
     }
   };
 

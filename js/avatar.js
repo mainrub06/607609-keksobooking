@@ -64,9 +64,10 @@
   var resetLoaders = function () {
     var photos = document.querySelectorAll('.ad-form__photo');
     previewAvatar.src = 'img/muffin-grey.svg';
-    for (var i = 0; i < photos.length; i++) {
-      photos[i].remove();
-    }
+    photos.forEach(function (item) {
+      item.remove();
+    });
+
     photoContainer.appendChild(previewImages);
   };
 
