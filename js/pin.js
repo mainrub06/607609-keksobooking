@@ -58,11 +58,11 @@
     removeMapCard();
     var fragmentPin = document.createDocumentFragment();
     if (adData.length <= MAX_PINS) {
-      for (var j = 0; j < adData.length; j++) {
-        if (adData[j].offer && adData[j].author && adData[j].location) {
-          fragmentPin.appendChild(renderElement(adData[j]));
+      adData.forEach(function (item) {
+        if (item.offer && item.author && item.location) {
+          fragmentPin.appendChild(renderElement(item));
         }
-      }
+      });
     } else {
       for (var b = 0; b < MAX_PINS; b++) {
         if (adData[b].offer && adData[b].author && adData[b].location) {
@@ -140,9 +140,9 @@
   var removeMapPins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     if (mapPinsItems) {
-      for (var j = 0; j < mapPinsItems.length; j++) {
-        mapPinsItems[j].remove();
-      }
+      mapPinsItems.forEach(function (item) {
+        item.remove();
+      });
     }
   };
 

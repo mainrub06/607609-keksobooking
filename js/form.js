@@ -10,7 +10,7 @@
   var price = document.querySelector('#price');
 
   type.addEventListener('change', function () {
-    setMinValue();
+    setValue();
   });
 
   var timeIn = document.querySelector('#timein');
@@ -27,8 +27,9 @@
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
 
-  var renderRoomNumber = function () {
-    roomNumber.options.forEach(function (item) {
+  var roomArray = roomNumber.querySelectorAll('option');
+  roomNumber.addEventListener('change', function () {
+    roomArray.forEach(function (item) {
       if (item.selected && item.value === '1') {
         addDisabledCapacity(true, true, false, true);
       }
@@ -42,27 +43,6 @@
         addDisabledCapacity(true, true, true, false);
       }
     });
-  };
-
-  roomNumber.addEventListener('change', function () {
-    renderRoomNumber();
-
-    // for (var r = 0; r < roomNumber.options.length; r++) {
-    //   var option = roomNumber.options[r];
-
-    //   if (option.selected && option.value === '1') {
-    //     window.setFormData.addDisabledCapacity(true, true, false, true);
-    //   }
-    //   if (option.selected && option.value === '2') {
-    //     window.setFormData.addDisabledCapacity(true, false, false, true);
-    //   }
-    //   if (option.selected && option.value === '3') {
-    //     window.setFormData.addDisabledCapacity(false, false, false, true);
-    //   }
-    //   if (option.selected && option.value === '100') {
-    //     window.setFormData.addDisabledCapacity(true, true, true, false);
-    //   }
-    // }
   });
 
   var setAddressCoords = function (coords) {
@@ -147,27 +127,28 @@
     'palace': 10000
   };
 
+  var typeArray = type.querySelectorAll('option');
   var setValue = function () {
-    for (var h = 0; h < type.options.length; h++) {
-      var option = type.options[h];
-      if (option.selected) {
-        price.min = TypesPriceMap[option.value];
-        price.placeholder = TypesPriceMap[option.value];
+    typeArray.forEach(function (item) {
+      if (item.selected) {
+        price.min = TypesPriceMap[item.value];
+        price.placeholder = TypesPriceMap[item.value];
       }
-    }
+    });
   };
 
+  var capacityArray = capacity.querySelectorAll('option');
   var addDisabledCapacity = function (data0, data1, data2, data3) {
     capacity.options[0].disabled = data0;
     capacity.options[1].disabled = data1;
     capacity.options[2].disabled = data2;
     capacity.options[3].disabled = data3;
 
-    for (var i = 0; i < capacity.options.length; i++) {
-      if (capacity.options[i].disabled === false) {
-        capacity.options[i].selected = true;
+    capacityArray.forEach(function (item) {
+      if (item.disabled === false) {
+        item.selected = true;
       }
-    }
+    });
   };
 
   var fillAddress = function () {
@@ -180,6 +161,6 @@
   window.setFormData = {
     setMinValue: setValue,
     addDisabledCapacity: addDisabledCapacity,
-    fillAddress: fillAdress
+    fillAddress: fillAddress
   };
 })();

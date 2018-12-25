@@ -19,7 +19,7 @@
 
   feature.forEach(function (item) {
     featuresList.removeChild(item);
-  })
+  });
 
   photoList.removeChild(photoElement);
 

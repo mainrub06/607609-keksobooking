@@ -16,7 +16,7 @@
   var renderNumber = function (data) {
     var arr = [];
     for (var i = 0; arr.length < data; i++) {
-      var rundomNumber = window.utils.getRandomNumber(1, data);
+      var rundomNumber = getRandomNumber(1, data);
       if (arr.indexOf(rundomNumber) === -1) {
         arr.push(rundomNumber);
       }
