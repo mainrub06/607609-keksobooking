@@ -5,11 +5,11 @@
     MAX_Y: 630,
     MIN_Y: 130,
     MAX_X: 1200,
-    MIN_X: -2
+    MIN_X: 0
   };
   var MAIN_PIN = {
     WIDTH: 65,
-    HEIGHT: 87,
+    HEIGHT: 84,
     TOP: 375,
     LEFT: 570
   };
@@ -106,7 +106,7 @@
         y: window.utils.mapPinMain.offsetTop - shift.y
       };
 
-      if (calc.y > FRAMES.MIN_Y && calc.y < FRAMES.MAX_Y) {
+      if (calc.y >= FRAMES.MIN_Y && calc.y <= FRAMES.MAX_Y) {
         window.utils.mapPinMain.style.top = calc.y + 'px';
       }
 

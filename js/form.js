@@ -152,7 +152,7 @@
   };
 
   var fillAddress = function () {
-    adressInput.value = (window.utils.mapPinMain.offsetTop + window.pin.SIZE.HEIGHT) + ', ' + (window.utils.mapPinMain.offsetLeft + window.pin.SIZE.WIDTH / 2);
+    adressInput.value = parseInt(window.utils.mapPinMain.style.left, 10) + ', ' + parseInt(window.utils.mapPinMain.style.top, 10);
     adressInput.readOnly = true;
   };
 

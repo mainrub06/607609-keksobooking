@@ -62,14 +62,16 @@
     var type = popupEl.querySelector('.popup__type');
     var popupClose = popupEl.querySelector('.popup__close');
 
-    popupClose.addEventListener('click', function () {
-      popupEl.remove();
-    });
-    document.removeEventListener('click', function (evt) {
+    var isEscPopup = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         popupEl.remove();
       }
+    };
+
+    popupClose.addEventListener('click', function () {
+      popupEl.remove();
     });
+    document.removeEventListener('click', isEscPopup);
 
     if (popup.author.avatar === '') {
       popupEl.querySelector('.popup__avatar').classList.add('hidden');
@@ -123,11 +125,7 @@
 
     mapFiltersContainer.insertAdjacentElement('beforebegin', popupEl);
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.utils.escCode) {
-        popupEl.remove();
-      }
-    });
+    document.addEventListener('keydown', isEscPopup);
 
     return popupEl;
   };

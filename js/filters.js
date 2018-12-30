@@ -57,7 +57,7 @@
   };
 
   var housingFeatures = document.querySelector('#housing-features');
-  var filtrationByFeatures = function (item) {
+  var isFeaturesAim = function (item) {
     var checkedFeaturesItems = housingFeatures.querySelectorAll('input:checked');
     var renderArrayFeatures = [].map.call(checkedFeaturesItems, function (el) {
       return el;
@@ -69,7 +69,7 @@
 
   var filterPins = window.utils.debounce(function () {
     var data = window.pin.data;
-    var newFilteredArray = data.filter(isTypeAim).filter(isPriceAim).filter(isRoomsAim).filter(isGuestsAim).filter(filtrationByFeatures);
+    var newFilteredArray = data.filter(isTypeAim).filter(isPriceAim).filter(isRoomsAim).filter(isGuestsAim).filter(isFeaturesAim);
     window.pin.render(newFilteredArray);
   });
 
