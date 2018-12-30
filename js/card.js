@@ -65,6 +65,7 @@
     var isEscPopup = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         popupEl.remove();
+        document.removeEventListener('keydown', isEscPopup);
       }
     };
 
@@ -129,6 +130,8 @@
 
     return popupEl;
   };
+
+
 
   window.card = {
     renderPopup: renderPopup

@@ -66,6 +66,25 @@
   var error = document.querySelector('#error').content.querySelector('.error');
   var main = document.querySelector('main');
 
+  var removeEventKeydown = function(evt, element) {
+    if (evt.keyCode === window.utils.escCode) {
+      element.remove();
+    }
+  };
+
+  var addEventClick = function (element) {
+    document.addEventListener('click', function () {
+      element.remove();
+      removeEventClick(element);
+    });
+  };
+
+  var removeEventClick = function (element) {
+    document.removeEventListener('click', function () {
+      element.remove();
+    });
+  };
+
   var showSuccess = function () {
     var openSuccess = success.cloneNode(true);
     main.appendChild(openSuccess);
@@ -74,9 +93,7 @@
         openSuccess.remove();
       }
     });
-    document.addEventListener('click', function () {
-      openSuccess.remove();
-    });
+    addEventClick(openSuccess);
   };
 
   var showError = function () {
@@ -90,6 +107,9 @@
     });
     button.addEventListener('click', function () {
       openError.remove();
+      button.removeEventListener('click', function () {
+        openError.remove();
+      });
     });
   };
 
