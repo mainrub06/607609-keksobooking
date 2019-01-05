@@ -131,8 +131,6 @@
     return popupEl;
   };
 
-
-
   window.card = {
     renderPopup: renderPopup
   };

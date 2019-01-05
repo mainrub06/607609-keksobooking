@@ -66,51 +66,60 @@
   var error = document.querySelector('#error').content.querySelector('.error');
   var main = document.querySelector('main');
 
-  var removeEventKeydown = function(evt, element) {
-    if (evt.keyCode === window.utils.escCode) {
-      element.remove();
-    }
-  };
-
-  var addEventClick = function (element) {
-    document.addEventListener('click', function () {
-      element.remove();
-      removeEventClick(element);
-    });
-  };
-
-  var removeEventClick = function (element) {
-    document.removeEventListener('click', function () {
-      element.remove();
-    });
-  };
-
   var showSuccess = function () {
     var openSuccess = success.cloneNode(true);
     main.appendChild(openSuccess);
-    document.addEventListener('keydown', function (evt) {
+
+    var closeSuccess = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         openSuccess.remove();
       }
-    });
-    addEventClick(openSuccess);
+    };
+
+    var removeEvents = function () {
+      document.removeEventListener('click', function () {
+        openSuccess.remove();
+      });
+      document.removeEventListener('keydown', closeSuccess);
+    };
+
+    var closeOnEscSuccess = function () {
+      closeSuccess();
+      removeEvents();
+    };
+
+    var closeOnClickSuccess = function () {
+      openSuccess.remove();
+      removeEvents();
+    };
+    document.addEventListener('keydown', closeOnEscSuccess);
+    document.addEventListener('click', closeOnClickSuccess);
   };
 
   var showError = function () {
     var openError = error.cloneNode(true);
     var button = openError.querySelector('.error__button');
     main.appendChild(openError);
-    document.addEventListener('keydown', function (evt) {
+
+    var removeEvents = function () {
+      document.removeEventListener('keydown', documentErrorHandler);
+      button.removeEventListener('click', buttonErrorHandler);
+    };
+
+    var buttonErrorHandler = function () {
+      openError.remove();
+      removeEvents();
+    };
+
+    var documentErrorHandler = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         openError.remove();
       }
-    });
-    button.addEventListener('click', function () {
-      openError.remove();
-      button.removeEventListener('click', function () {
-        openError.remove();
-      });
-    });
+      removeEvents();
+    };
+
+    document.addEventListener('keydown', documentErrorHandler);
+    button.addEventListener('click', buttonErrorHandler);
   };
 
   var resetWebPage = function () {
