@@ -62,10 +62,15 @@
     var type = popupEl.querySelector('.popup__type');
     var popupClose = popupEl.querySelector('.popup__close');
 
+
+    var removeEvent = function () {
+      document.removeEventListener('keydown', isEscPopup);
+    };
+
     var isEscPopup = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         popupEl.remove();
-        document.removeEventListener('keydown', isEscPopup);
+        removeEvent();
       }
     };
 

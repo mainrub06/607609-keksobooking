@@ -70,21 +70,10 @@
     var openSuccess = success.cloneNode(true);
     main.appendChild(openSuccess);
 
-    var closeSuccess = function (evt) {
+    var closeOnEscSuccess = function (evt) {
       if (evt.keyCode === window.utils.escCode) {
         openSuccess.remove();
       }
-    };
-
-    var removeEvents = function () {
-      document.removeEventListener('click', function () {
-        openSuccess.remove();
-      });
-      document.removeEventListener('keydown', closeSuccess);
-    };
-
-    var closeOnEscSuccess = function () {
-      closeSuccess();
       removeEvents();
     };
 
@@ -92,6 +81,12 @@
       openSuccess.remove();
       removeEvents();
     };
+
+    var removeEvents = function () {
+      document.removeEventListener('click', closeOnClickSuccess);
+      document.removeEventListener('keydown', closeOnEscSuccess);
+    };
+
     document.addEventListener('keydown', closeOnEscSuccess);
     document.addEventListener('click', closeOnClickSuccess);
   };
